@@ -30,7 +30,7 @@ const Global = createGlobalStyle`
 
 const AppLayouts = ({children}) => {
 
-    const isLoggedIn=useSelector((state)=>state.user.isLoggedIn)
+    const me=useSelector((state)=>state.user.me)
 
     // const [isLoggedIn,setIsLoggedIn]=useState(false)
     // 
@@ -55,13 +55,14 @@ const AppLayouts = ({children}) => {
         </Menu>
 
         <Row gutter={8}>
-            <Col xs={24} md={6}>{isLoggedIn ?<UserProfile/>:<Login/>}</Col>
+            <Col xs={24} md={6}>{me ?<UserProfile/>:<Login/>}</Col>
             <Col xs={24} md={12}>{children}</Col>
             <Col xs={24} md={6}>
                 <a href='https://www.naver.com' target="_blank" rel='noreferrer noopener'>naver</a>
             </Col>
 
         </Row>
+       
         {/* xs일때는 모바일사이즈라서 24 가로전체를 차지하고 이고 md일때는 한가로에서 3개크기만큼등분된다 */}
         
         

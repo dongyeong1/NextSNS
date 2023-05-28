@@ -3,8 +3,8 @@ import { Button,Form,Input } from 'antd'
 import Link from 'next/link'
 import styled from 'styled-components'
 import useinput from '../hooks/useinput'
-import {useDispatch} from 'react-redux'
-import { loginAction } from '../reducers/user'
+import {useDispatch, useSelector} from 'react-redux'
+import { loginRequestAction } from '../reducers/user'
 
 const ButtonWrapper=styled.div`
 margin-top:10px;
@@ -14,7 +14,9 @@ margin-top:10px;
 const Login = ({setIsLoggedIn}) => {
 
     const dispatch = useDispatch();
-    // const [id,setId]=useState('')
+
+    const {logInLoading} =useSelector((state)=>state.user)
+
     const [password,setPassword]=useState('')
     const [passPassword,setPassPassword]=useState(false)
 
@@ -39,7 +41,7 @@ const Login = ({setIsLoggedIn}) => {
     const onSubmit=useCallback(()=>{
         if(passPassword){
             // setIsLoggedIn(true)
-            dispatch(loginAction({id,password}))
+            dispatch(loginRequestAction({id,password}))
 
         }
         
@@ -58,7 +60,7 @@ const Login = ({setIsLoggedIn}) => {
                 <br/>
                 <Input type="password" name='user-password' value={password} onChange={onChangePassword} ></Input>
             </ButtonWrapper>
-            <Button type='primary' htmlType='submit'>로그인</Button>
+            <Button type='primary' htmlType='submit' loading={logInLoading}>로그인</Button>
             <Button type='primary'>
                 <Link href='/signup'>
                 <a>회원가입</a>
